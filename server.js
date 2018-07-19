@@ -2,8 +2,16 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var morgan = require('morgan');
 var config = require('./config');
-
+var mongoose = require('mongoose');
 var app = express();
+
+mongoose.connect(config.database, { useNewUrlParser: true }, function(err){
+	if (err) {
+		console.log('Error');
+	} else {
+		console.log('Success db connection');
+	}
+});
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -17,6 +25,6 @@ app.listen(config.port, function(err) {
 	if(err) {
 		console.log(err);
 	} else {
-		console.log('Success');
+		console.log('The Server is Listening on 3000');
 	}
 });
